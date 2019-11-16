@@ -19500,7 +19500,8 @@ var staticRenderFns = [
             ]),
             _vm._v(" "),
             _c("textarea", {
-              staticClass: "w-full my-2 border border-gray-300 rounded-lg p-2",
+              staticClass:
+                "w-full my-2 border border-gray-300 rounded-lg p-2 text-gray-600 text-sm",
               attrs: {
                 rows: "20",
                 placeholder: "Enter some long form content."
