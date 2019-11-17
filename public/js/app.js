@@ -1854,8 +1854,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    console.log('Component mounted.');
+  data: function data() {
+    return {
+      agentData: ''
+    };
+  },
+  methods: {
+    clear: function clear() {
+      this.agentData = null;
+      this.$refs.agentData.focus();
+    },
+    onSubmit: function onSubmit() {
+      return 0;
+    }
   }
 });
 
@@ -19482,15 +19493,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("form", { staticClass: "w-full" }, [
+  return _c("div", { staticClass: "container" }, [
+    _c(
+      "form",
+      {
+        staticClass: "w-full",
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.onSubmit($event)
+          }
+        }
+      },
+      [
         _c(
           "div",
           { staticClass: "w-full border-b border-b-2 border-indigo-500 py-2" },
@@ -19500,11 +19515,29 @@ var staticRenderFns = [
             ]),
             _vm._v(" "),
             _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.agentData,
+                  expression: "agentData"
+                }
+              ],
+              ref: "agentData",
               staticClass:
                 "w-full my-2 border border-gray-300 rounded-lg p-2 text-gray-600 text-sm",
               attrs: {
                 rows: "20",
                 placeholder: "Enter some long form content."
+              },
+              domProps: { value: _vm.agentData },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.agentData = $event.target.value
+                }
               }
             })
           ]
@@ -19515,7 +19548,8 @@ var staticRenderFns = [
             "button",
             {
               staticClass:
-                "bg-white hover:bg-indigo-700 hover:text-white text-gray-800 font-semibold py-2 px-6 border border-gray-400 rounded shadow mr-2"
+                "bg-white hover:bg-indigo-700 hover:text-white text-gray-800 font-semibold py-2 px-6 border border-gray-400 rounded shadow mr-2",
+              attrs: { type: "submit" }
             },
             [_vm._v("Send")]
           ),
@@ -19524,15 +19558,21 @@ var staticRenderFns = [
             "button",
             {
               staticClass:
-                "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-6 border hover:border-red-400 border-gray-400 rounded shadow"
+                "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-6 border hover:border-red-400 border-gray-400 rounded shadow",
+              on: {
+                click: function($event) {
+                  return _vm.clear()
+                }
+              }
             },
             [_vm._v("Cancel")]
           )
         ])
-      ])
-    ])
-  }
-]
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
