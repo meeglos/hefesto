@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <form class="w-full" v-on:submit.prevent="onSubmit">
+        <form class="w-full" v-on:submit.prevent="onSubmit()">
             <div class="w-full border-b border-b-2 border-indigo-500 py-2">
                 <p class="block text-gray-700">Insert agent's productivity data:</p>
                 <textarea v-model="agentData" ref="agentData" class="w-full my-2 border border-gray-300 rounded-lg p-2 text-gray-600 text-sm" rows="20" placeholder="Enter some long form content."></textarea>
@@ -21,13 +21,13 @@
             }
         },
         methods: {
+            onSubmit: function () {
+                console.log(this.agentData.split('\n'));
+            },
             clear: function () {
-                this.agentData = null;
+                this.agentData = '';
                 this.$refs.agentData.focus();
             },
-            onSubmit: function () {
-                return 0;
-            }
         },
     }
 </script>

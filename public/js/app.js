@@ -1860,12 +1860,12 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    clear: function clear() {
-      this.agentData = null;
-      this.$refs.agentData.focus();
-    },
     onSubmit: function onSubmit() {
-      return 0;
+      console.log(this.agentData.split('\n'));
+    },
+    clear: function clear() {
+      this.agentData = '';
+      this.$refs.agentData.focus();
     }
   }
 });
@@ -19501,7 +19501,7 @@ var render = function() {
         on: {
           submit: function($event) {
             $event.preventDefault()
-            return _vm.onSubmit($event)
+            return _vm.onSubmit()
           }
         }
       },
