@@ -14,15 +14,31 @@
 </template>
 
 <script>
+import { isArray } from 'util';
     export default {
         data() {
             return {
-                agentData: ''
+                agentData: '',
+                line: '',
+                tabs: ''
             }
         },
         methods: {
             onSubmit: function () {
-                console.log(this.agentData.split('\n'));
+                let cierre = 0;
+                let averia = 0;
+                var lines = this.agentData.split('\n');
+                for(var i = 0; i < lines.length; i++){
+                    var tabs = lines[i].split('\t');
+                        if (tabs[5] === 'Cerrado' && tabs[1] === 'mrcasap1' && tabs[6] === 'Cliente') {
+                            cierre++;
+                        }
+
+                        if (tabs[6] === 'Cliente') {
+                            averia++;
+                        }
+                    }
+                console.log('Registros: ' + lines.length + '\nCierres: ' + cierre + '\nAverias: ' + averia);
             },
             clear: function () {
                 this.agentData = '';
