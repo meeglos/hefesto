@@ -18,3 +18,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/agents', 'AgentController@index');
+
+Route::post('/agents', 'AgentController@store');
+
+

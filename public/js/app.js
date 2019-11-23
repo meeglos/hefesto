@@ -1860,14 +1860,17 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       agentData: '',
-      line: '',
-      tabs: ''
+      tabs: '',
+      "final": []
     };
   },
   methods: {
     onSubmit: function onSubmit() {
-      var cierre = 0;
-      var averia = 0;
+      var cierre = 0,
+          averia = 0;
+      var items = [0, 1, 3, 4, 5, 6, 7, 28, 18];
+      var _final = []; // let final = 0;
+
       var lines = this.agentData.split('\n');
 
       for (var i = 0; i < lines.length; i++) {
@@ -1880,9 +1883,16 @@ __webpack_require__.r(__webpack_exports__);
         if (tabs[6] === 'Cliente') {
           averia++;
         }
-      }
 
-      console.log('Registros: ' + lines.length + '\nCierres: ' + cierre + '\nAverias: ' + averia);
+        this.$data["final"].push(items.map(function (obj) {
+          return tabs[obj];
+        }));
+      } // console.log(final);
+      // console.log('Registros: ' + lines.length + '\nCierres: ' + cierre + '\nAverias: ' + averia);
+
+
+      console.log(this.$data["final"]);
+      axios.post('/agents', this.$data["final"]);
     },
     clear: function clear() {
       this.agentData = '';
