@@ -16,7 +16,7 @@ class CreateAgentsTable extends Migration
         Schema::create('agents', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('userid');
-            $table->string('destination');
+            $table->string('destination')->nullable();
             $table->string('action');
             $table->string('status');
             $table->string('type');

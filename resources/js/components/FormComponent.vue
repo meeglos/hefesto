@@ -26,30 +26,19 @@ import { isArray } from 'util';
         methods: {
             onSubmit: function () {
                 let cierre = 0, averia = 0;
-                var items = [0, 1, 3, 4, 5, 6, 7, 28, 18];
-                var final = [];
+                var names = ['id', 'userid', 'destination', 'action', 'status', 'type', 'category', 'code'];
+                var items = [0, 1, 3, 4, 5, 6, 7, 28];  /* se ha quitado el item 18 (fecha de cierre [closed_at])*/
+                var final = []; var el = [];
                 // let final = 0;
-
                 var lines = this.agentData.split('\n');
-                for(var i = 0; i < lines.length; i++){
+                for(var i = 0; i < lines.length; i++) {
                     var tabs = lines[i].split('\t');
 
-                    if (tabs[5] === 'Cerrado' && tabs[1] === 'mrcasap1' && tabs[6] === 'Cliente') {
-                        cierre++;
-                    }
+                    el = items.map(function(val) { return tabs[val]; });
+                    var array = names.reduce((obj, key, index) => ({ ...obj, [key]: el[index] }), {});
 
-                    if (tabs[6] === 'Cliente') {
-                        averia++;
-                    }
-
-                    this.$data.final.push(items.map(function(obj) { return tabs[obj]; }));
+                    axios.post('/agents', array);
                 }
-
-                // console.log(final);
-                // console.log('Registros: ' + lines.length + '\nCierres: ' + cierre + '\nAverias: ' + averia);
-                console.log(this.$data.final);
-
-                axios.post('/agents', this.$data.final);
             },
 
             clear: function () {

@@ -35,15 +35,19 @@ class AgentController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->validate($request, [
-        //     // 'userid' => 'required',
-        //     'action' => 'required',
-        //     'status' => 'required',
-        //     'type' => 'required',
-        //     'category' => 'required',
-        //     'code' => 'required'
-        // ]);
-// dd($request);
+        // $agent = new Agent(request(['id', 'userid', 'action', 'status', 'type', 'category', 'code']));
+        // dd($agent);
+
+        $this->validate($request, [
+            'id' => 'required',
+            'userid' => 'required',
+            'action' => 'required',
+            'status' => 'required',
+            'type' => 'required',
+            'category' => 'required',
+            'code' => 'required'
+        ]);
+
         Agent::create($request->all());
 
         return ['message' => 'Agent data stored!'];

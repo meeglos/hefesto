@@ -1840,6 +1840,12 @@ module.exports = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! util */ "./node_modules/util/util.js");
 /* harmony import */ var util__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(util__WEBPACK_IMPORTED_MODULE_0__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -1868,31 +1874,25 @@ __webpack_require__.r(__webpack_exports__);
     onSubmit: function onSubmit() {
       var cierre = 0,
           averia = 0;
-      var items = [0, 1, 3, 4, 5, 6, 7, 28, 18];
-      var _final = []; // let final = 0;
+      var names = ['id', 'userid', 'destination', 'action', 'status', 'type', 'category', 'code'];
+      var items = [0, 1, 3, 4, 5, 6, 7, 28];
+      /* se ha quitado el item 18 (fecha de cierre [closed_at])*/
+
+      var _final = [];
+      var el = []; // let final = 0;
 
       var lines = this.agentData.split('\n');
 
       for (var i = 0; i < lines.length; i++) {
         var tabs = lines[i].split('\t');
-
-        if (tabs[5] === 'Cerrado' && tabs[1] === 'mrcasap1' && tabs[6] === 'Cliente') {
-          cierre++;
-        }
-
-        if (tabs[6] === 'Cliente') {
-          averia++;
-        }
-
-        this.$data["final"].push(items.map(function (obj) {
-          return tabs[obj];
-        }));
-      } // console.log(final);
-      // console.log('Registros: ' + lines.length + '\nCierres: ' + cierre + '\nAverias: ' + averia);
-
-
-      console.log(this.$data["final"]);
-      axios.post('/agents', this.$data["final"]);
+        el = items.map(function (val) {
+          return tabs[val];
+        });
+        var array = names.reduce(function (obj, key, index) {
+          return _objectSpread({}, obj, _defineProperty({}, key, el[index]));
+        }, {});
+        axios.post('/agents', array);
+      }
     },
     clear: function clear() {
       this.agentData = '';

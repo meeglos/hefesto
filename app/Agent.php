@@ -8,6 +8,6 @@ class Agent extends Model
 {
     //
     protected $fillable = [
-        'userid', 'destination', 'action', 'status', 'type', 'category', 'closed_at', 'code'
+        'id', 'userid', 'destination', 'action', 'status', 'type', 'category', 'code', 'closed_at'
     ];
 }
