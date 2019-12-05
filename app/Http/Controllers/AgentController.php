@@ -14,7 +14,9 @@ class AgentController extends Controller
      */
     public function index()
     {
-        return Agent::orderBy('id', 'DESC')->get();
+        $agent = Agent::orderBy('id', 'DESC')->get();
+
+        return view('agents', compact("agent"));
     }
 
     /**
@@ -35,9 +37,6 @@ class AgentController extends Controller
      */
     public function store(Request $request)
     {
-        // $agent = new Agent(request(['id', 'userid', 'action', 'status', 'type', 'category', 'code']));
-        // dd($agent);
-
         $this->validate($request, [
             'id' => 'required',
             'userid' => 'required',
